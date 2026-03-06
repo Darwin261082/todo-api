@@ -1,76 +1,76 @@
-odo-api (Backend PHP + MySQL)
-# ToDo API Backend
+API REST para gestión de tareas. Implementa autenticación con JWT y permite CRUD de tareas.
 
-Aplicación backend para la gestión de tareas, implementada en **PHP 8+** con arquitectura **Hexagonal**, **SOLID**, **CQRS** y autenticación **JWT**.
+---
 
-## Requisitos
+## 📦 Tecnologías
 
-- PHP 8+
-- Composer
-- MySQL o MariaDB
-- XAMPP / MAMP / WAMP o similar
+- PHP 8+  
+- MySQL / MariaDB  
+- Composer (para dependencias, como `firebase/php-jwt`)  
+- Arquitectura Hexagonal + CQRS  
+- JSON Web Tokens (JWT) para autenticación  
 
-## Instalación
+---
 
-1. Clonar el repositorio:
+## ⚡ Requisitos
+
+- XAMPP, MAMP, LAMP o cualquier servidor PHP local  
+- Composer  
+- Base de datos MySQL  
+
+---
+
+## 🚀 Instalación
+
+1. Clonar repositorio:
 
 ```bash
-git clone <REPO_URL>
+git clone https://github.com/tu-usuario/todo-api.git
 cd todo-api
 
-Instalar dependencias con Composer:
+Instalar dependencias PHP:
 
 composer install
 
-Configurar la base de datos:
+Configurar base de datos:
 
-Crear base de datos todo_db
+Crear base de datos todo_db (o la que desees).
 
-Crear tablas:
+Importar las tablas:
 
 CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100),
-  email VARCHAR(100),
-  password VARCHAR(255),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE tasks (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT,
-  title VARCHAR(255),
-  completed BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    title VARCHAR(255),
+    completed BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-Configurar conexión en src/Infrastructure/Database.php:
+Configurar conexión en src/Infrastructure/Database.php.
 
-$host = 'localhost';
-$db = 'todo_db';
-$user = 'root';
-$pass = '';
+Levantar servidor local (por ejemplo con XAMPP en htdocs/todo-api/public).
 
-Probar endpoint de prueba:
-
-http://localhost/todo-api/public/index.php/api/test
-
-Debe devolver algo como:
-
-{"message":"API funcionando"}
-Endpoints
-Método	Ruta	Descripción
-POST	/api/register	Registrar usuario
+📌 Endpoints
+Método	Endpoint	Descripción
+POST	/api/register	Crear usuario
 POST	/api/login	Login y generar JWT
-GET	/api/tasks	Listar tareas del usuario (JWT requerido)
-POST	/api/tasks	Crear tarea (JWT requerido)
-PUT	/api/tasks/{id}	Actualizar tarea (JWT requerido)
-DELETE	/api/tasks/{id}	Eliminar tarea (JWT requerido)
-Notas
+GET	/api/tasks	Listar tareas del usuario (protegido)
+POST	/api/tasks	Crear tarea (protegido)
+PUT	/api/tasks/{id}	Actualizar tarea (protegido)
+DELETE	/api/tasks/{id}	Eliminar tarea (protegido)
+✅ Notas
 
-Autenticación mediante JWT con expiración.
+Usar JWT para todas las rutas protegidas.
 
-Arquitectura hexagonal: src/Application, src/Domain, src/Infrastructure, src/Shared.
+Arquitectura Hexagonal permite separar dominio, aplicación e infraestructura.
 
-CQRS implementado en commands y queries.
+CQRS implementado: Commands y Queries separados para mantener claridad de operaciones.
