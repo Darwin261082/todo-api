@@ -25,7 +25,7 @@ API REST para gestión de tareas. Implementa autenticación con JWT y permite CR
 1. Clonar repositorio:
 
 ```bash
-git clone https://github.com/tu-usuario/todo-api.git
+git clone https://github.com/Darwin261082/todo-api.git
 cd todo-api
 
 Instalar dependencias PHP:
